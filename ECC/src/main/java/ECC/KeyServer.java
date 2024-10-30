@@ -44,9 +44,7 @@ public class KeyServer {
 
     // Handler untuk menangani permintaan klien
     private static class KeyServerHandler extends Thread {
-
         private final Socket clientSocket;
-
         public KeyServerHandler(Socket socket) {
             this.clientSocket = socket;
         }
