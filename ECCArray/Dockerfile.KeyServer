@@ -1,0 +1,23 @@
+# # Gunakan image dasar OpenJDK
+# FROM openjdk:18-jdk-alpine
+
+# # Set working directory
+# WORKDIR /app
+
+# # Salin semua file .java dan file JAR Bouncy Castle ke dalam container
+# COPY target/classes/ /app/
+# COPY bcprov-jdk18on-1.78.1.jar /app/
+
+# # Kompilasi semua file Java
+# RUN javac -cp ".:bcprov-jdk18on-1.78.1.jar" ECCArray/*.java
+
+# # Jalankan Client saat container dijalankan
+# CMD ["java", "-cp", ".:bcprov-jdk18on-1.78.1.jar", "ECCArray.Client"]
+
+FROM openjdk:18-jdk-alpine
+WORKDIR /app
+COPY target/classes/ /app/
+COPY bcprov-jdk18on-1.78.1.jar /app/
+EXPOSE 6000
+# Menjalankan KeyServer
+CMD ["java", "-cp", ".:bcprov-jdk18on-1.78.1.jar", "ECCArray.KeyServer"]
