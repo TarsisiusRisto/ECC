@@ -16,7 +16,7 @@ import java.util.Base64;
 public class Server {
 
     private static final int PORT = 9090;
-    private static final String KEY_SERVER_ADDRESS = "192.168.86.1";
+    private static final String KEY_SERVER_ADDRESS = "localhost";
     private static final int KEY_SERVER_PORT = 8080;
     private static KeyPair keyPair;
     private static PublicKey clientPublicKey;

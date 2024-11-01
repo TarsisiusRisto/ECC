@@ -18,8 +18,8 @@ public class Client {
     private KeyPair clientKeyPair;
     private PrivateKey clientPrivateKey;
     private PublicKey serverPublicKey;
-    private static final String SERVER_ADDRESS = "192.168.86.1";
-    // private static final String SERVER_ADDRESS = "localhost";
+    // private static final String SERVER_ADDRESS = "192.168.86.1";
+    private static final String SERVER_ADDRESS = "localhost";
 
     public Client() {
         try {
@@ -30,7 +30,7 @@ public class Client {
 
             startClient();
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
@@ -90,7 +90,7 @@ public class Client {
             }
             clientSocket.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 

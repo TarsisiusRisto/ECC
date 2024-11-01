@@ -15,8 +15,8 @@ import java.util.Scanner;
 
 public class Client {
 
-    private static final String KEY_SERVER_ADDRESS = "192.168.86.1";
-    private static final String SERVER_ADDRESS = "192.168.86.1";
+    private static final String KEY_SERVER_ADDRESS = "localhost";
+    private static final String SERVER_ADDRESS = "localhost";
     private static final int KEY_SERVER_PORT = 9999;
     private static final int PORT = 8888;
     private static KeyPair keyPair;
@@ -39,6 +39,7 @@ public class Client {
                     String message = scanner.nextLine();
                     // StartTime
                     long startTime = System.currentTimeMillis();
+                    
                     // double startTime = System.nanoTime();
                     if ("exit".equalsIgnoreCase(message)) {
                         System.out.println("Disconnected");
