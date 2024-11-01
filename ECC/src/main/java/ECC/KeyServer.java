@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class KeyServer {
 
-    private static final int PORT = 9999;
+    private static final int PORT = 5000;
     private static final Map<String, String> keyStore = new HashMap<>();
 
     public static void main(String[] args) {

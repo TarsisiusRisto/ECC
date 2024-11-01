@@ -15,10 +15,10 @@ import java.util.Scanner;
 
 public class Client {
 
-    private static final String KEY_SERVER_ADDRESS = "localhost";
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int KEY_SERVER_PORT = 9999;
-    private static final int PORT = 8888;
+    private static final String KEY_SERVER_ADDRESS = "172.31.42.54";
+    private static final String SERVER_ADDRESS = "172.31.47.70";
+    private static final int KEY_SERVER_PORT = 5000;
+    private static final int PORT = 5001;
     private static KeyPair keyPair;
     private static PublicKey serverPublicKey;
 
@@ -39,7 +39,7 @@ public class Client {
                     String message = scanner.nextLine();
                     // StartTime
                     long startTime = System.currentTimeMillis();
-                    
+
                     // double startTime = System.nanoTime();
                     if ("exit".equalsIgnoreCase(message)) {
                         System.out.println("Disconnected");

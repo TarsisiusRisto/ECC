@@ -19,7 +19,7 @@ public class Client {
     private PrivateKey clientPrivateKey;
     private PublicKey serverPublicKey;
     // private static final String SERVER_ADDRESS = "192.168.86.1";
-    private static final String SERVER_ADDRESS = "localhost";
+    private static final String SERVER_ADDRESS = "172.31.47.70";
 
     public Client() {
         try {
@@ -35,7 +35,7 @@ public class Client {
     }
 
     private void startClient() {
-        try (Socket clientSocket = new Socket(SERVER_ADDRESS, 8888)) {
+        try (Socket clientSocket = new Socket(SERVER_ADDRESS, 7001)) {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             // Connected 

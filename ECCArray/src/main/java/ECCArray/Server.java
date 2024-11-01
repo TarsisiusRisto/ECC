@@ -15,9 +15,9 @@ import java.util.Base64;
 
 public class Server {
 
-    private static final int PORT = 9090;
-    private static final String KEY_SERVER_ADDRESS = "localhost";
-    private static final int KEY_SERVER_PORT = 8080;
+    private static final int PORT = 6001;
+    private static final String KEY_SERVER_ADDRESS = "172.31.42.54";
+    private static final int KEY_SERVER_PORT = 6000;
     private static KeyPair keyPair;
     private static PublicKey clientPublicKey;
 
@@ -55,10 +55,10 @@ public class Server {
                             // Kirim kembali pesan yang didekripsi ke klien (dikenkripsi dengan kunci publik klien)
                             String encryptedResponse = Base64.getEncoder().encodeToString(ECC.encrypt(decryptedMessage, clientPublicKey));
                             long endTime = System.currentTimeMillis();
-                            
+
                             System.out.println("Decrypt message from client: " + encryptedResponse + "\n");
                             out.println(encryptedResponse);
-                            
+
                             long latency = endTime - startTime;
                             System.out.println("Start time : " + startTime + " ms");
                             System.out.println("End time : " + endTime + " ms");

@@ -15,11 +15,11 @@ import java.util.Scanner;
 
 public class Client {
 
-    private static final String KEY_SERVER_ADDRESS = "localhost";
+    private static final String KEY_SERVER_ADDRESS = "172.31.42.54";
     // private static final String SERVER_ADDRESS = "203.0.113.129";
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int KEY_SERVER_PORT = 8080;
-    private static final int PORT = 9090;
+    private static final String SERVER_ADDRESS = "172.31.47.70";
+    private static final int KEY_SERVER_PORT =6000;
+    private static final int PORT = 6001;
     private static KeyPair keyPair;
     private static PublicKey serverPublicKey;
 
