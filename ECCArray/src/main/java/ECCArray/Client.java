@@ -15,10 +15,10 @@ import java.util.Scanner;
 
 public class Client {
 
-    private static final String KEY_SERVER_ADDRESS = "11.0.13.26";
+    private static final String KEY_SERVER_ADDRESS = "172.31.42.54";
     // private static final String SERVER_ADDRESS = "203.0.113.129";
-    private static final String SERVER_ADDRESS = "14.0.13.126";
-    private static final int KEY_SERVER_PORT =6000;
+    private static final String SERVER_ADDRESS = "172.31.47.70";
+    private static final int KEY_SERVER_PORT = 6000;
     private static final int PORT = 6001;
     private static KeyPair keyPair;
     private static PublicKey serverPublicKey;
@@ -43,7 +43,7 @@ public class Client {
                         System.out.println("Disconnected");
                         break;
                     }
-                    
+
                     // Retrieve server public key from KeyServer
                     serverPublicKey = retrievePublicKey("Server");
                     if (serverPublicKey == null) {
@@ -61,7 +61,7 @@ public class Client {
                     if (encryptedResponse != null) {
                         String decryptedResponse = ECC.decrypt(encryptedResponse, keyPair.getPrivate());
                         System.out.println("Received message from server: " + decryptedResponse);
-                        
+
                         // Print latency
                         long latency = endTime - startTime;
                         System.out.println("Start time : " + startTime + " ms");

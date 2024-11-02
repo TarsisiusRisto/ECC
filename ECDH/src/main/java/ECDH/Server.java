@@ -55,7 +55,9 @@ public class Server {
                 while (true) {
                     // Receive encrypted message and decode
                     String encryptedMessageStr = in.readLine();
-                    if (encryptedMessageStr == null) break;
+                    if (encryptedMessageStr == null) {
+                        break;
+                    }
 
                     byte[] encryptedMessage = Base64.getDecoder().decode(encryptedMessageStr);
                     String decryptedMessage = new String(ECDH.decryptWithECC(serverPrivateKey, encryptedMessage));
