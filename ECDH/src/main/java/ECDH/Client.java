@@ -19,7 +19,7 @@ public class Client {
     private PrivateKey clientPrivateKey;
     private PublicKey serverPublicKey;
     // private static final String SERVER_ADDRESS = "192.168.86.1";
-    private static final String SERVER_ADDRESS = "localhost";
+    private static final String SERVER_ADDRESS = "14.0.13.126";
 
     public Client() {
         try {

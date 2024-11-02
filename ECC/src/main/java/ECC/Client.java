@@ -15,8 +15,8 @@ import java.util.Scanner;
 
 public class Client {
 
-    private static final String KEY_SERVER_ADDRESS = "172.31.46.108";
-    private static final String SERVER_ADDRESS = "10.0.6.76";
+    private static final String KEY_SERVER_ADDRESS = "11.0.13.26";
+    private static final String SERVER_ADDRESS = "14.0.13.126";
     private static final int KEY_SERVER_PORT = 5000;
     private static final int PORT = 5001;
     private static KeyPair keyPair;
