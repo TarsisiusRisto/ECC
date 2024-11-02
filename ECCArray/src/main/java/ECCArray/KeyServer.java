@@ -24,7 +24,7 @@ class KeyEntry {
 
 public class KeyServer {
 
-    private static final int PORT = 8080;
+    private static final int PORT = 6000;
     private static final List<KeyEntry> keyStore = new ArrayList<>();
 
     public static void main(String[] args) {

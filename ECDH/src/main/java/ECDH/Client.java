@@ -30,7 +30,7 @@ public class Client {
 
             startClient();
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -52,38 +52,31 @@ public class Client {
 
             // Generate shared secret using ECDH
             byte[] sharedSecret = ECDH.generateECDHSharedSecret(clientPrivateKey, serverPublicKey);
-            SecretKey symmetricKey = new SecretKeySpec(sharedSecret, 0, 16, "AES");
+            SecretKey symmetricKey = new SecretKeySpec(sharedSecret, 0, 16, "AES"); // Optional if using AES-based encryption
 
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     // Input message to send to the server
                     System.out.print("Enter message : ");
                     String message = scanner.nextLine();
-                    
+
                     if ("exit".equalsIgnoreCase(message)) {
                         break; // Exit loop if user types "exit"
                     }
-                    // Encrypt the message
-                    byte[] iv = new byte[16];
-                    new java.security.SecureRandom().nextBytes(iv);
-                    byte[] encryptedMessage = ECDH.encryptData(symmetricKey, message, iv);
+                    // Encrypt the message using ECC
+                    byte[] encryptedMessage = ECDH.encryptWithECC(serverPublicKey, message.getBytes());
 
-                    // Send encrypted message and IV to server
+                    // Send encrypted message to server
                     String base64EncryptedMessage = Base64.getEncoder().encodeToString(encryptedMessage);
-                    String base64IV = Base64.getEncoder().encodeToString(iv);
                     double startTime = System.nanoTime();
                     out.println(base64EncryptedMessage);
-                    out.println(base64IV);
-                    
 
                     // Receive echoed message from server
                     String serverEncryptedResponse = in.readLine();
-                    String serverIV = in.readLine();
-                    // End Time
                     double endTime = System.nanoTime();
 
                     byte[] serverEncryptedBytes = Base64.getDecoder().decode(serverEncryptedResponse);
-                    String serverDecryptedResponse = ECDH.decryptData(symmetricKey, serverEncryptedBytes, Base64.getDecoder().decode(serverIV));
+                    String serverDecryptedResponse = new String(ECDH.decryptWithECC(clientPrivateKey, serverEncryptedBytes));
                     double latency = (endTime - startTime) / 1000000;
                     System.out.println("Response message encrypted from server : " + serverEncryptedResponse);
                     System.out.println("Response message from server: " + serverDecryptedResponse);
@@ -92,7 +85,7 @@ public class Client {
             }
             clientSocket.close();
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

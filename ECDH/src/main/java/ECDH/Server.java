@@ -10,14 +10,12 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
 public class Server {
 
     private KeyPair serverKeyPair;
     private PrivateKey serverPrivateKey;
     private PublicKey clientPublicKey;
+    private static final int PORT = 7001;
 
     public Server() {
         try {
@@ -33,16 +31,14 @@ public class Server {
     }
 
     private void startServer() {
-        try (ServerSocket serverSocket = new ServerSocket(7001)) {
-            System.out.println("Server is running...");
-            try (Socket clientSocket = serverSocket.accept()) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                // Connected with Server
-                System.out.println("Client connected: " + clientSocket.getRemoteSocketAddress() + "\n");
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Server is listening on port " + PORT);
 
-                // Start time untuk pertukaran kunci
-                long keyExchangeST = System.currentTimeMillis();
+            try (Socket socket = serverSocket.accept()) {
+                System.out.println("Client connected: " + socket.getRemoteSocketAddress());
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
                 // Send server's public key to the client
                 String serverEncodedPublicKey = Base64.getEncoder().encodeToString(serverKeyPair.getPublic().getEncoded());
@@ -55,41 +51,22 @@ public class Server {
 
                 // Generate shared secret using ECDH
                 byte[] sharedSecret = ECDH.generateECDHSharedSecret(serverPrivateKey, clientPublicKey);
-                SecretKey symmetricKey = new SecretKeySpec(sharedSecret, 0, 16, "AES");
-                long keyExchangeET = System.currentTimeMillis();
-                long keyExchangeTotal = keyExchangeET - keyExchangeST;
-                String encryptedData;
-                String ivString;
+
                 while (true) {
-                    // Receive encrypted message from client
-                    encryptedData = in.readLine();
-                    // Start Time
-                    double startTime = System.currentTimeMillis();
-                    if (encryptedData == null) {
-                        break; // Exit loop if client disconnects
-                    }
-                    ivString = in.readLine();
-                    byte[] iv = Base64.getDecoder().decode(ivString);
-                    byte[] encryptedBytes = Base64.getDecoder().decode(encryptedData);
-                    System.out.println("Receive encrypted message from client : " + encryptedData);
+                    // Receive encrypted message and decode
+                    String encryptedMessageStr = in.readLine();
+                    if (encryptedMessageStr == null) break;
 
-                    // Decrypt the message
-                    String decryptedClientMessage = ECDH.decryptData(symmetricKey, encryptedBytes, iv);
-                    System.out.println("Decrypted message from client: " + decryptedClientMessage);
+                    byte[] encryptedMessage = Base64.getDecoder().decode(encryptedMessageStr);
+                    String decryptedMessage = new String(ECDH.decryptWithECC(serverPrivateKey, encryptedMessage));
+                    System.out.println("Received decrypted message from client: " + decryptedMessage);
 
-                    // Echo the decrypted message back to client
-                    byte[] encryptedResponse = ECDH.encryptData(symmetricKey, decryptedClientMessage, iv);
-                    String encodedEncryptedResponse = Base64.getEncoder().encodeToString(encryptedResponse);
-                    out.println(encodedEncryptedResponse);
-                    out.println(ivString); // Send back the same IV
+                    // Encrypt the message and send it back to the client
+                    byte[] responseMessage = ECDH.encryptWithECC(clientPublicKey, decryptedMessage.getBytes());
+                    String responseMessageStr = Base64.getEncoder().encodeToString(responseMessage);
+                    out.println(responseMessageStr);
 
-                    // End Time
-                    double endTime = System.currentTimeMillis();
-                    double latency = (endTime - startTime) / 1000000;
-                    out.println(encodedEncryptedResponse);
-                    out.println(ivString);
-                    System.out.println("Key exchange latency: " + keyExchangeTotal + " ms \n");
-                    System.out.println("Latency: " + latency + " ms \n");
+                    System.out.println("Sent encrypted response to client.");
                 }
             }
         } catch (Exception e) {
