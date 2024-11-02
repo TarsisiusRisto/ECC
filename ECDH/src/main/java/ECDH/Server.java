@@ -64,7 +64,7 @@ public class Server {
                     // Receive encrypted message from client
                     encryptedData = in.readLine();
                     // Start Time
-                    long startTime = System.currentTimeMillis();
+                    double startTime = System.currentTimeMillis();
                     if (encryptedData == null) {
                         break; // Exit loop if client disconnects
                     }
@@ -84,8 +84,8 @@ public class Server {
                     out.println(ivString); // Send back the same IV
 
                     // End Time
-                    long endTime = System.currentTimeMillis();
-                    long latency = endTime - startTime;
+                    double endTime = System.currentTimeMillis();
+                    double latency = (endTime - startTime) / 1000000;
                     out.println(encodedEncryptedResponse);
                     out.println(ivString);
                     System.out.println("Key exchange latency: " + keyExchangeTotal + " ms \n");

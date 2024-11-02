@@ -19,7 +19,7 @@ public class Client {
     private PrivateKey clientPrivateKey;
     private PublicKey serverPublicKey;
     // private static final String SERVER_ADDRESS = "192.168.86.1";
-    private static final String SERVER_ADDRESS = "172.31.47.70";
+    private static final String SERVER_ADDRESS = "localhost";
 
     public Client() {
         try {
@@ -59,7 +59,7 @@ public class Client {
                     // Input message to send to the server
                     System.out.print("Enter message : ");
                     String message = scanner.nextLine();
-                    long startTime = System.currentTimeMillis();
+                    
                     if ("exit".equalsIgnoreCase(message)) {
                         break; // Exit loop if user types "exit"
                     }
@@ -71,18 +71,20 @@ public class Client {
                     // Send encrypted message and IV to server
                     String base64EncryptedMessage = Base64.getEncoder().encodeToString(encryptedMessage);
                     String base64IV = Base64.getEncoder().encodeToString(iv);
+                    double startTime = System.nanoTime();
                     out.println(base64EncryptedMessage);
                     out.println(base64IV);
+                    
 
                     // Receive echoed message from server
                     String serverEncryptedResponse = in.readLine();
                     String serverIV = in.readLine();
                     // End Time
-                    long endTime = System.currentTimeMillis();
+                    double endTime = System.nanoTime();
 
                     byte[] serverEncryptedBytes = Base64.getDecoder().decode(serverEncryptedResponse);
                     String serverDecryptedResponse = ECDH.decryptData(symmetricKey, serverEncryptedBytes, Base64.getDecoder().decode(serverIV));
-                    long latency = endTime - startTime;
+                    double latency = (endTime - startTime) / 1000000;
                     System.out.println("Response message encrypted from server : " + serverEncryptedResponse);
                     System.out.println("Response message from server: " + serverDecryptedResponse);
                     System.out.println("Latency : " + latency + "ms \n");
