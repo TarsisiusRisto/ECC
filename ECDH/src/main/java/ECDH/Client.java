@@ -18,8 +18,8 @@ public class Client {
     private KeyPair clientKeyPair;
     private PrivateKey clientPrivateKey;
     private PublicKey serverPublicKey;
-    // private static final String SERVER_ADDRESS = "192.168.86.1";
-    private static final String SERVER_ADDRESS = "14.0.13.126";
+    private static final String SERVER_ADDRESS = "192.168.86.1";
+    // private static final String SERVER_ADDRESS = "14.0.13.126";
 
     public Client() {
         try {

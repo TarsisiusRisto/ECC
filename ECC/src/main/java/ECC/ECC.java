@@ -20,6 +20,7 @@ public class ECC {
 
     public static KeyPair generateKeyPair() throws GeneralSecurityException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
+        // keyPairGenerator.initialize(new ECGenParameterSpec("secp256r1"));
         keyPairGenerator.initialize(256);
         return keyPairGenerator.generateKeyPair();
     }

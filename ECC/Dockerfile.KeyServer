@@ -1,7 +1,0 @@
-FROM openjdk:18-jdk-alpine
-WORKDIR /app
-COPY target/classes/ /app/
-COPY bcprov-jdk18on-1.78.1.jar /app/
-# Menjalankan server
-EXPOSE 5000
-CMD ["java", "-cp", ".:bcprov-jdk18on-1.78.1.jar", "ECC.KeyServer"]

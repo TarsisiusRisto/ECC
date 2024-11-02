@@ -1,7 +1,0 @@
-FROM openjdk:18-jdk-alpine
-WORKDIR /app
-COPY target/classes/ /app/
-COPY bcprov-jdk18on-1.78.1.jar /app/
-# EXPOSE 6002
-# Menjalankan server
-CMD ["java", "-cp", ".:bcprov-jdk18on-1.78.1.jar", "ECCArray.Client"]

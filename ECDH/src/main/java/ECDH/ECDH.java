@@ -29,7 +29,7 @@ public class ECDH {
 
     // Method to generate ECDH shared secret
     public static byte[] generateECDHSharedSecret(PrivateKey privateKey, PublicKey publicKey) throws Exception {
-        KeyAgreement keyAgreement = KeyAgreement.getInstance("ECDH");
+        KeyAgreement keyAgreement = KeyAgreement.getInstance("ECDH", "BC");
         keyAgreement.init(privateKey);
         keyAgreement.doPhase(publicKey, true);
         return keyAgreement.generateSecret();
@@ -37,14 +37,14 @@ public class ECDH {
 
     // Method to encrypt data using ECC Public Key
     public static byte[] encryptWithECC(PublicKey publicKey, byte[] data) throws Exception {
-        Cipher cipher = Cipher.getInstance("ECIES"); // ECIES is often used for ECC encryption
+        Cipher cipher = Cipher.getInstance("ECIES", "BC"); // ECIES is often used for ECC encryption
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         return cipher.doFinal(data);
     }
 
     // Method to decrypt data using ECC Private Key
     public static byte[] decryptWithECC(PrivateKey privateKey, byte[] encryptedData) throws Exception {
-        Cipher cipher = Cipher.getInstance("ECIES");
+        Cipher cipher = Cipher.getInstance("ECIES", "BC");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(encryptedData);
     }

@@ -38,7 +38,6 @@ public class Client {
                 while (true) {
                     System.out.print("Enter message to send to server: ");
                     String message = scanner.nextLine();
-                    long startTime = System.currentTimeMillis(); // Start time
                     if ("exit".equalsIgnoreCase(message)) {
                         System.out.println("Disconnected");
                         break;
@@ -52,16 +51,17 @@ public class Client {
                     }
                     String encryptedMessage = Base64.getEncoder().encodeToString(ECC.encrypt(message, serverPublicKey));
                     System.out.println("Sending encrypted message: " + encryptedMessage + "\n");
+                    long startTime = System.currentTimeMillis(); // Start time
                     out.println(encryptedMessage);
                     out.flush();
 
                     // Read response from server
                     String encryptedResponse = in.readLine();
-                    long endTime = System.currentTimeMillis();
+
                     if (encryptedResponse != null) {
                         String decryptedResponse = ECC.decrypt(encryptedResponse, keyPair.getPrivate());
                         System.out.println("Received message from server: " + decryptedResponse);
-
+                        long endTime = System.currentTimeMillis();
                         // Print latency
                         long latency = endTime - startTime;
                         System.out.println("Start time : " + startTime + " ms");

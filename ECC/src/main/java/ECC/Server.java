@@ -17,6 +17,7 @@ public class Server {
 
     private static final int PORT = 5001;
     private static final String KEY_SERVER_ADDRESS = "11.0.13.26";
+    // private static final String KEY_SERVER_ADDRESS = "localhost";
     private static final int KEY_SERVER_PORT = 5000;
     private static KeyPair keyPair;
     private static PublicKey clientPublicKey;
@@ -43,6 +44,7 @@ public class Server {
                             // Dekripsi pesan yang dikirim oleh klien
                             String decryptedMessage = ECC.decrypt(encryptedMessage, keyPair.getPrivate());
                             System.out.println("Receive  message from client: " + decryptedMessage);
+                            long endTime = System.currentTimeMillis();
 
                             // Selalu ambil kunci publik klien untuk setiap siklus komunikasi
                             clientPublicKey = retrievePublicKey("Client");
@@ -50,10 +52,8 @@ public class Server {
                                 System.out.println("Client public key not found.");
                                 continue;
                             }
-
                             // Kirim kembali pesan yang didekripsi ke klien (dikenkripsi dengan kunci publik klien)
                             String encryptedResponse = Base64.getEncoder().encodeToString(ECC.encrypt(decryptedMessage, clientPublicKey));
-                            long endTime = System.currentTimeMillis();
                             System.out.println("Decrypted message from client : " + encryptedResponse + "\n");
                             out.println(encryptedResponse);
 
@@ -72,11 +72,10 @@ public class Server {
                     }
                 }
             } catch (IOException e) {
-                // e.printStackTrace();
+                System.out.println("Connection error: " + e.getMessage());
             }
-
         } catch (Exception e) {
-            // e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

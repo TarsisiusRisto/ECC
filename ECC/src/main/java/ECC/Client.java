@@ -16,7 +16,9 @@ import java.util.Scanner;
 public class Client {
 
     private static final String KEY_SERVER_ADDRESS = "11.0.13.26";
+    // private static final String KEY_SERVER_ADDRESS = "localhost";
     private static final String SERVER_ADDRESS = "14.0.13.126";
+    // private static final String SERVER_ADDRESS = "localhost";
     private static final int KEY_SERVER_PORT = 5000;
     private static final int PORT = 5001;
     private static KeyPair keyPair;
@@ -37,8 +39,6 @@ public class Client {
                 while (true) {
                     System.out.print("Enter message to send to server: ");
                     String message = scanner.nextLine();
-                    // StartTime
-                    long startTime = System.currentTimeMillis();
 
                     // double startTime = System.nanoTime();
                     if ("exit".equalsIgnoreCase(message)) {
@@ -53,6 +53,8 @@ public class Client {
                     }
                     String encryptedMessage = Base64.getEncoder().encodeToString(ECC.encrypt(message, serverPublicKey));
                     System.out.println("Sending encrypted message: " + encryptedMessage + "\n");
+                    // StartTime
+                    long startTime = System.currentTimeMillis();
                     out.println(encryptedMessage);
                     out.flush();
 
@@ -79,7 +81,6 @@ public class Client {
             } catch (IOException e) {
                 // e.printStackTrace();
             }
-
         } catch (Exception e) {
             // e.printStackTrace();
         }

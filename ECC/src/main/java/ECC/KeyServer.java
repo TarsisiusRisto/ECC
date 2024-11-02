@@ -18,7 +18,7 @@ public class KeyServer {
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             // Menambahkan data acak lebih dari 100, 200, 400, 500, dan 1000
-            populateRandomData();
+            populateRandomData(0);
             System.out.println("KeyServer started on port " + PORT);
             while (true) {
                 new KeyServerHandler(serverSocket.accept()).start();
@@ -29,9 +29,8 @@ public class KeyServer {
     }
 
     // Fungsi untuk menambahkan data acak ke dalam HashMap
-    private static void populateRandomData() {
+    private static void populateRandomData(int size) {
         Random random = new Random();
-        int size = 0; // rubah sesuai kebutuhan, seperti 100, 200, 300, 400 dst
         for (int i = 0; i < size; i++) {
             String id = "Dummy" + (i + 1);
             String publicKey = "PublicKey" + (random.nextInt(size) + 1); // Menghasilkan angka dari 1 hingga 100
@@ -44,7 +43,9 @@ public class KeyServer {
 
     // Handler untuk menangani permintaan klien
     private static class KeyServerHandler extends Thread {
+
         private final Socket clientSocket;
+
         public KeyServerHandler(Socket socket) {
             this.clientSocket = socket;
         }
@@ -74,7 +75,13 @@ public class KeyServer {
                     out.println("Invalid request");
                 }
             } catch (IOException e) {
-                // e.printStackTrace();
+                System.out.println("Connection lost : " + e.getMessage());
+            } finally {
+                try {
+                    clientSocket.close();
+                } catch (IOException e) {
+                    System.out.println("Errot closing socket: " + e.getMessage());
+                }
             }
         }
     }
@@ -88,7 +95,7 @@ public class KeyServer {
     // }
     private static void decrementKeyCount(String id) {
         if (keyStore.containsKey(id)) {
-            keyStore.remove(id); // Hanya menghapus kunci publik yang valid (Server/Client), bukan data dummy
+            keyStore.getOrDefault(id, id); // Hanya menghapus kunci publik yang valid (Server/Client), bukan data dummy
             System.out.println("Key retrieved for : " + id);
             System.out.println("Remaining keys: " + keyStore.size() + " \n");
         }

@@ -44,6 +44,7 @@ public class Server {
                             // Dekripsi pesan yang dikirim oleh klien
                             String decryptedMessage = ECC.decrypt(encryptedMessage, keyPair.getPrivate());
                             System.out.println("Receive message from Client : " + decryptedMessage);
+                            long endTime = System.currentTimeMillis();
 
                             // Selalu ambil kunci publik klien untuk setiap siklus komunikasi
                             clientPublicKey = retrievePublicKey("Client");
@@ -54,8 +55,6 @@ public class Server {
 
                             // Kirim kembali pesan yang didekripsi ke klien (dikenkripsi dengan kunci publik klien)
                             String encryptedResponse = Base64.getEncoder().encodeToString(ECC.encrypt(decryptedMessage, clientPublicKey));
-                            long endTime = System.currentTimeMillis();
-
                             System.out.println("Decrypt message from client: " + encryptedResponse + "\n");
                             out.println(encryptedResponse);
 
