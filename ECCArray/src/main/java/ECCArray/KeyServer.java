@@ -30,7 +30,7 @@ public class KeyServer {
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             // Menambahkan data acak lebih dari 100, 200, 400, 500, dan 1000
-            populateRandomData();
+            populateRandomData(0);
             System.out.println("KeyServer started on port " + PORT);
             while (true) {
                 new KeyServerHandler(serverSocket.accept()).start();
@@ -41,9 +41,8 @@ public class KeyServer {
     }
 
     // Fungsi untuk menambahkan data acak ke dalam ArrayList
-    private static void populateRandomData() {
+    private static void populateRandomData(int size) {
         Random random = new Random();
-        int size = 10000; // rubah sesuai kebutuhan, seperti 100, 200, 300, 400 dst
         for (int i = 0; i < size; i++) {
             String id = "Dummy" + (i + 1);
             String publicKey = "PublicKey" + (random.nextInt(size) + 1); // Menghasilkan angka dari 1 hingga 100
