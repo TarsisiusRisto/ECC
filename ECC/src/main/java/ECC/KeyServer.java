@@ -18,7 +18,7 @@ public class KeyServer {
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             // Menambahkan data acak lebih dari 100, 200, 400, 500, dan 1000
-            populateRandomData(10000);
+            populateRandomData(100000);
             System.out.println("KeyServer started on port " + PORT);
             while (true) {
                 new KeyServerHandler(serverSocket.accept()).start();
