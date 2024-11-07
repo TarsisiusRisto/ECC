@@ -18,7 +18,7 @@ public class KeyServer {
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             // Menambahkan data acak lebih dari 100, 200, 400, 500, dan 1000
-            populateRandomData(0);
+            populateRandomData(10);
             System.out.println("KeyServer started on port " + PORT);
             while (true) {
                 new KeyServerHandler(serverSocket.accept()).start();
@@ -28,7 +28,7 @@ public class KeyServer {
         }
     }
 
-    // Fungsi untuk menambahkan data acak ke dalam HashMap
+    // Fungsi untuk menambahkan data acak ke dalam HashMaps
     private static void populateRandomData(int size) {
         Random random = new Random();
         for (int i = 0; i < size; i++) {

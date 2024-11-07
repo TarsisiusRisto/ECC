@@ -20,8 +20,8 @@ public class Client {
     private PublicKey serverPublicKey;
 
     // private static final String SERVER_ADDRESS = "localhost";
-    // private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
-    private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
+    private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
+    // private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
 
     public Client() {
         try {
@@ -70,16 +70,16 @@ public class Client {
 
                     // Send encrypted message to server
                     String base64EncryptedMessage = Base64.getEncoder().encodeToString(encryptedMessage);
-                    double startTime = System.nanoTime();
+                    long startTime = System.currentTimeMillis();
                     out.println(base64EncryptedMessage);
 
                     // Receive echoed message from server
                     String serverEncryptedResponse = in.readLine();
-                    double endTime = System.nanoTime();
+                    long endTime = System.currentTimeMillis();
 
                     byte[] serverEncryptedBytes = Base64.getDecoder().decode(serverEncryptedResponse);
                     String serverDecryptedResponse = new String(ECDH.decryptWithECC(clientPrivateKey, serverEncryptedBytes));
-                    double latency = (endTime - startTime) / 1000000;
+                    long latency = endTime - startTime;
                     System.out.println("Response message encrypted from server : " + serverEncryptedResponse);
                     System.out.println("Response message from server: " + serverDecryptedResponse);
                     System.out.println("Latency : " + latency + "ms \n");
