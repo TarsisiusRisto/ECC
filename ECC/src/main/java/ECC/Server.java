@@ -20,6 +20,7 @@ public class Server {
     private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
     // private static final String KEY_SERVER_ADDRESS = "11.0.13.26"; // Region Ohio
     // private static final String KEY_SERVER_ADDRESS = "20.0.2.201"; // Region Singapore
+    // private static final String KEY_SERVER_ADDRESS = "192.168.1.4"; // Ethernet
     private static final int KEY_SERVER_PORT = 5000;
     private static KeyPair keyPair;
     private static PublicKey clientPublicKey;
