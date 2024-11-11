@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 // Custom class to represent key entry
 class KeyEntry {
@@ -30,7 +31,7 @@ public class KeyServer {
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             // Menambahkan data acak lebih dari 100, 200, 400, 500, dan 1000
-            populateRandomData(100000);
+            populateRandomData();
             System.out.println("KeyServer started on port " + PORT);
             while (true) {
                 new KeyServerHandler(serverSocket.accept()).start();
@@ -41,8 +42,11 @@ public class KeyServer {
     }
 
     // Fungsi untuk menambahkan data acak ke dalam ArrayList
-    private static void populateRandomData(int size) {
+    private static void populateRandomData() {
+        Scanner scanner = new Scanner(System.in);
         Random random = new Random();
+        System.out.print("Add random data : ");
+        int size = scanner.nextInt();
         for (int i = 0; i < size; i++) {
             String id = "Dummy" + (i + 1);
             String publicKey = "PublicKey" + (random.nextInt(size) + 1); // Menghasilkan angka dari 1 hingga 100

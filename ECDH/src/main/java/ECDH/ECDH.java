@@ -23,13 +23,13 @@ public class ECDH {
     // Method to generate ECC Key Pair
     public KeyPair generateECCKeyPair() throws Exception {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
-        keyPairGenerator.initialize(521);  // Key size can be 256, 384, or 521 bits
+        keyPairGenerator.initialize(256);  // Key size can be 256, 384, or 521 bits
         return keyPairGenerator.generateKeyPair();
     }
-
+ 
     // Method to generate ECDH shared secret
     public static byte[] generateECDHSharedSecret(PrivateKey privateKey, PublicKey publicKey) throws Exception {
-        KeyAgreement keyAgreement = KeyAgreement.getInstance("ECDH", "BC");
+        KeyAgreement keyAgreement = KeyAgreement.getInstance("ECDH");
         keyAgreement.init(privateKey);
         keyAgreement.doPhase(publicKey, true);
         return keyAgreement.generateSecret();
