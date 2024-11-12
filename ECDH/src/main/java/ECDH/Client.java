@@ -71,16 +71,16 @@ public class Client {
 
                     // Send encrypted message to server
                     String base64EncryptedMessage = Base64.getEncoder().encodeToString(encryptedMessage);
-                    long startTime = System.currentTimeMillis();
+                    double startTime = System.nanoTime();
                     out.println(base64EncryptedMessage);
 
                     // Receive echoed message from server
                     String serverEncryptedResponse = in.readLine();
-                    long endTime = System.currentTimeMillis();
+                    double endTime = System.nanoTime();
 
                     byte[] serverEncryptedBytes = Base64.getDecoder().decode(serverEncryptedResponse);
                     String serverDecryptedResponse = new String(ECDH.decryptWithECC(clientPrivateKey, serverEncryptedBytes));
-                    long latency = endTime - startTime;
+                    double latency = (endTime - startTime) / 1000000;
                     System.out.println("Response message encrypted from server : " + serverEncryptedResponse);
                     System.out.println("Response message from server: " + serverDecryptedResponse);
                     System.out.println("Latency : " + latency + "ms \n");

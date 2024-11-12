@@ -44,13 +44,13 @@ public class Server {
                     System.out.println("Client connected: " + clientSocket.getRemoteSocketAddress() + "\n");
                     while (true) {
                         String encryptedMessage = in.readLine();
-                        long startTime = System.currentTimeMillis();
+                        double startTime = System.nanoTime();
                         if (encryptedMessage != null) {
 
                             // Dekripsi pesan yang dikirim oleh klien
                             String decryptedMessage = ECC.decrypt(encryptedMessage, keyPair.getPrivate());
                             System.out.println("Receive message from Client : " + decryptedMessage);
-                            long endTime = System.currentTimeMillis();
+                            double endTime = System.nanoTime();
 
                             // Selalu ambil kunci publik klien untuk setiap siklus komunikasi
                             clientPublicKey = retrievePublicKey("Client");
@@ -64,7 +64,7 @@ public class Server {
                             System.out.println("Decrypt message from client: " + encryptedResponse + "\n");
                             out.println(encryptedResponse);
 
-                            long latency = endTime - startTime;
+                            double latency = (endTime - startTime) / 1000000;
                             System.out.println("Start time : " + startTime + " ms");
                             System.out.println("End time : " + endTime + " ms");
                             System.out.println("Latency : " + latency + " ms\n");

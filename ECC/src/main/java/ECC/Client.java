@@ -15,13 +15,13 @@ import java.util.Scanner;
 
 public class Client {
 
-    // private static final String KEY_SERVER_ADDRESS = "localhost";
-    private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
+    private static final String KEY_SERVER_ADDRESS = "localhost";
+    // private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
     // private static final String KEY_SERVER_ADDRESS = "11.0.13.26"; // Region Ohio
     // private static final String KEY_SERVER_ADDRESS = "20.0.2.201"; // Region Singapore
     // private static final String KEY_SERVER_ADDRESS = "192.168.1.5"; // Ethernet
-    // private static final String SERVER_ADDRESS = "localhost";
-    private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
+    private static final String SERVER_ADDRESS = "localhost";
+    // private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
     // private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
     // private static final String SERVER_ADDRESS = "192.168.1.2"; // Ethernet
 
@@ -60,7 +60,7 @@ public class Client {
                     String encryptedMessage = Base64.getEncoder().encodeToString(ECC.encrypt(message, serverPublicKey));
                     System.out.println("Sending encrypted message: " + encryptedMessage + "\n");
                     // StartTime
-                    long startTime = System.currentTimeMillis();
+                    double startTime = System.nanoTime();
                     out.println(encryptedMessage);
                     out.flush();
 
@@ -69,10 +69,10 @@ public class Client {
                     if (encryptedResponse != null) {
                         String decryptedResponse = ECC.decrypt(encryptedResponse, keyPair.getPrivate());
                         System.out.println("Received message from server: " + decryptedResponse + "\n");
-                        long endTime = System.currentTimeMillis();
+                        double endTime = System.nanoTime();
                         // double endTime = System.nanoTime();
                         // Print latency
-                        long latency = endTime - startTime;
+                        double latency = (endTime - startTime)/1000000;
                         // double latency = (endTime - startTime) / 1000000;
                         System.out.println("Start time : " + startTime + " ms");
                         System.out.println("End time : " + endTime + " ms");

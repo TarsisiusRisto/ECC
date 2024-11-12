@@ -16,8 +16,8 @@ import java.util.Base64;
 public class Server {
 
     private static final int PORT = 5001;
-    // private static final String KEY_SERVER_ADDRESS = "localhost";
-    private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
+    private static final String KEY_SERVER_ADDRESS = "localhost";
+    // private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
     // private static final String KEY_SERVER_ADDRESS = "11.0.13.26"; // Region Ohio
     // private static final String KEY_SERVER_ADDRESS = "20.0.2.201"; // Region Singapore
     // private static final String KEY_SERVER_ADDRESS = "192.168.1.5"; // Ethernet
@@ -42,12 +42,12 @@ public class Server {
                     System.out.println("Client connected: " + clientSocket.getRemoteSocketAddress() + "\n");
                     while (true) {
                         String encryptedMessage = in.readLine();
-                        long startTime = System.currentTimeMillis(); // Start time
+                        double startTime = System.nanoTime(); // Start time
                         if (encryptedMessage != null) {
                             // Dekripsi pesan yang dikirim oleh klien
                             String decryptedMessage = ECC.decrypt(encryptedMessage, keyPair.getPrivate());
                             System.out.println("Receive  message from client: " + decryptedMessage);
-                            long endTime = System.currentTimeMillis();
+                            double endTime = System.nanoTime();
 
                             // Selalu ambil kunci publik klien untuk setiap siklus komunikasi
                             clientPublicKey = retrievePublicKey("Client");
@@ -64,7 +64,7 @@ public class Server {
                             returnPublicKey("Client", Base64.getEncoder().encodeToString(clientPublicKey.getEncoded()));
 
                             // Mencetak latensi
-                            long latency = endTime - startTime;
+                            double latency = (endTime - startTime) / 1000000;
                             System.out.println("Start time : " + startTime + " ms");
                             System.out.println("End time : " + endTime + " ms");
                             System.out.println("Latency : " + latency + " ms\n");

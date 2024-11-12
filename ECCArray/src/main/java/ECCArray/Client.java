@@ -59,7 +59,7 @@ public class Client {
                     }
                     String encryptedMessage = Base64.getEncoder().encodeToString(ECC.encrypt(message, serverPublicKey));
                     System.out.println("Sending encrypted message: " + encryptedMessage + "\n");
-                    long startTime = System.currentTimeMillis(); // Start time
+                    double startTime = System.nanoTime(); // Start time
                     out.println(encryptedMessage);
                     out.flush();
 
@@ -69,9 +69,9 @@ public class Client {
                     if (encryptedResponse != null) {
                         String decryptedResponse = ECC.decrypt(encryptedResponse, keyPair.getPrivate());
                         System.out.println("Received message from server: " + decryptedResponse);
-                        long endTime = System.currentTimeMillis();
+                        double endTime = System.nanoTime();
                         // Print latency
-                        long latency = endTime - startTime;
+                        double latency = (endTime - startTime) / 1000000;
                         System.out.println("Start time : " + startTime + " ms");
                         System.out.println("End time : " + endTime + " ms");
                         System.out.println("Latency : " + latency + " ms\n");
