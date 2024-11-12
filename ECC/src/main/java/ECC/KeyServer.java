@@ -43,8 +43,8 @@ public class KeyServer {
         }
         System.out.println("Added random entry : " + keyStore.size() + "\n");
         // displayAllKeys();
+        scanner.close();
     }
-
     // Handler untuk menangani permintaan klien
     private static class KeyServerHandler extends Thread {
 

@@ -16,14 +16,13 @@ import java.util.Scanner;
 public class Client {
 
     // private static final String KEY_SERVER_ADDRESS = "localhost";
-    // private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
+    private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
     // private static final String KEY_SERVER_ADDRESS = "11.0.13.26"; // Region Ohio
-    private static final String KEY_SERVER_ADDRESS = "20.0.2.201"; // Region Singapore
+    // private static final String KEY_SERVER_ADDRESS = "20.0.2.201"; // Region Singapore
     // private static final String KEY_SERVER_ADDRESS = "192.168.1.5"; // Ethernet
-
     // private static final String SERVER_ADDRESS = "localhost";
-    // private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
-    private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
+    private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
+    // private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
     // private static final String SERVER_ADDRESS = "192.168.1.2"; // Ethernet
 
     private static final int KEY_SERVER_PORT = 5000;

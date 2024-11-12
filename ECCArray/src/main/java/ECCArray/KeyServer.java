@@ -53,6 +53,7 @@ public class KeyServer {
             keyStore.add(new KeyEntry(id, publicKey));
         }
         System.out.println("Added random entry : " + keyStore.size() + "\n");
+        scanner.close();
     }
 
     // Handler untuk menangani permintaan klien
