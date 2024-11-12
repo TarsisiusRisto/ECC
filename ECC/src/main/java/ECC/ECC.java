@@ -6,6 +6,7 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
+import java.security.spec.ECGenParameterSpec;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
@@ -20,8 +21,8 @@ public class ECC {
 
     public static KeyPair generateKeyPair() throws GeneralSecurityException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
-        // keyPairGenerator.initialize(new ECGenParameterSpec("secp384r1"));
-        keyPairGenerator.initialize(384);
+        keyPairGenerator.initialize(new ECGenParameterSpec("secp384r1"));
+        // keyPairGenerator.initialize(384);
         return keyPairGenerator.generateKeyPair();
     }
 

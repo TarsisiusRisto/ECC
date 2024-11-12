@@ -6,6 +6,7 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
+import java.security.spec.ECGenParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -23,10 +24,10 @@ public class ECDH {
     // Method to generate ECC Key Pair
     public KeyPair generateECCKeyPair() throws Exception {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
-        keyPairGenerator.initialize(384);  // Key size can be 256, 384, or 521 bits
+        keyPairGenerator.initialize(new ECGenParameterSpec("secp384r1")); // Key size can be 256, 384, or 521 bits
         return keyPairGenerator.generateKeyPair();
     }
- 
+
     // Method to generate ECDH shared secret
     public static byte[] generateECDHSharedSecret(PrivateKey privateKey, PublicKey publicKey) throws Exception {
         KeyAgreement keyAgreement = KeyAgreement.getInstance("ECDH");
