@@ -20,9 +20,9 @@ public class Client {
     private PublicKey serverPublicKey;
 
     // private static final String SERVER_ADDRESS = "localhost";
-    // private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
+    private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
     // private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
-    private static final String SERVER_ADDRESS = "192.168.2.102"; // Ethernet
+    // private static final String SERVER_ADDRESS = "192.168.2.102"; // Ethernet
 
     public Client() {
         try {
