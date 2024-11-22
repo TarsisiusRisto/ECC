@@ -18,8 +18,8 @@ public class Server {
     private static final int PORT = 6001;
 
 // private static final String KEY_SERVER_ADDRESS = "localhost";
-private static final String KEY_SERVER_ADDRESS = "54.179.162.60"; // region Sydney
-// private static final String KEY_SERVER_ADDRESS = "192.168.2.120"; // Ethernet
+// private static final String KEY_SERVER_ADDRESS = "54.179.162.60"; // region Sydney
+private static final String KEY_SERVER_ADDRESS = "192.168.2.1"; // Ethernet
 
     private static final int KEY_SERVER_PORT = 6000;
     private static KeyPair keyPair;
