@@ -16,13 +16,10 @@ import java.util.Scanner;
 public class Client {
 
     // private static final String KEY_SERVER_ADDRESS = "localhost";
-    private static final String KEY_SERVER_ADDRESS = "172.31.42.54"; // region Tokyo
-    // private static final String KEY_SERVER_ADDRESS = "11.0.13.26"; // Region Ohio
-    // private static final String KEY_SERVER_ADDRESS = "20.0.2.201"; // Region Singapore
+    private static final String KEY_SERVER_ADDRESS = "54.252.122.39"; // region Sydney
     // private static final String KEY_SERVER_ADDRESS = "192.168.2.120"; // Ethernet
     // private static final String SERVER_ADDRESS = "localhost";
-    private static final String SERVER_ADDRESS = "172.31.47.70"; // Region Tokyo
-    // private static final String SERVER_ADDRESS = "14.0.13.126"; // Region Osaka
+    private static final String SERVER_ADDRESS = "57.181.109.249"; // Region Tokyo
     // private static final String SERVER_ADDRESS = "192.168.2.102"; // Ethernet
 
     private static final int KEY_SERVER_PORT = 5000;
@@ -40,7 +37,7 @@ public class Client {
 
             // Start client socket
             try (Socket socket = new Socket(SERVER_ADDRESS, PORT); PrintWriter out = new PrintWriter(socket.getOutputStream(), true); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); Scanner scanner = new Scanner(System.in)) {
-
+   
                 System.out.println("Connected to server: " + socket.getRemoteSocketAddress() + "\n");
                 while (true) {
                     System.out.print("Enter message to send to server: ");
@@ -95,7 +92,7 @@ public class Client {
     // Method yang digunakan untuk menyimpan kunci publik Client di KeyServer
     private static void storePublicKey(String id) throws IOException {
         try (Socket socket = new Socket(KEY_SERVER_ADDRESS, KEY_SERVER_PORT); PrintWriter out = new PrintWriter(socket.getOutputStream(), true); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
+  
             out.println("STORE " + id);
             String encodedPublicKey = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
             out.println(encodedPublicKey);
@@ -106,7 +103,7 @@ public class Client {
     // Method yang digunakan untuk mendapatkan kunci publik Server yang telah disimpan di KeyServer
     private static PublicKey retrievePublicKey(String id) throws IOException, GeneralSecurityException {
         try (Socket socket = new Socket(KEY_SERVER_ADDRESS, KEY_SERVER_PORT); PrintWriter out = new PrintWriter(socket.getOutputStream(), true); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
+  
             out.println("RETRIEVE " + id);
             String response = in.readLine();
             if (response.startsWith("Key not found")) {
@@ -125,7 +122,7 @@ public class Client {
     // Method yang digunakan untuk mengembalikan kunci publik Server ke KeyServer ketika client sudah mengirim pesan
     private static void returnPublicKey(String id, String publicKey) throws IOException {
         try (Socket socket = new Socket(KEY_SERVER_ADDRESS, KEY_SERVER_PORT); PrintWriter out = new PrintWriter(socket.getOutputStream(), true); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
+  
             out.println("STORE " + id);  // Menginstruksikan untuk menyimpan kunci publik Server
             out.println(publicKey);  // Mengirim kunci publik Server yang diperoleh dari komunikasi
             System.out.println(in.readLine());
